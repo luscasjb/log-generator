@@ -1,0 +1,21 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /etc/positions.yaml
+
+clients:
+  - url: http://loki:3100/loki/api/v1/push
+
+scrape_configs:
+  - job_name: "docker-logs"
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: "docker-logs"
+          __path__: "/var/lib/docker/containers/*/*.log"
+          
+# 978ab8f314b1a1b8ccb14c4a3875edf3a9dad4d8cfa1e4851c7a6f8b8e62c3a0 - keycloak
+# home/copy/original-bridge/unifi-keycloak-bridge/logs - java
